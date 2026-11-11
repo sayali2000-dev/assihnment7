@@ -1,0 +1,42 @@
+pipelne {
+  
+   agent any
+   stages {
+      stage('Checkout') {
+         steps {
+            git branch: 'main',
+            url: 'https://github.com/sayali2000-dev/assihnment7.git'
+         }
+     }
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/YOUR_USERNAME/assignment7.git'
+            }
+        }
+
+        stage('Compile Java') {
+            steps {
+                sh '''
+                mkdir -p build
+                javac -d build src/HelloWorld.java
+                '''
+            }
+        }
+
+        stage('Execute Java') {
+            steps {
+                sh '''
+                java -cp build HelloWorld
+                '''
+            }
+        }
+
+    }
+}
